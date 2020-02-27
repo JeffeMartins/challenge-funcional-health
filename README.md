@@ -12,7 +12,7 @@
 
 **Instalação das dependências**
 
-*Yarn install
+*Yarn install<br>
 *Npm install
 
 **Startando servidor**
@@ -21,7 +21,7 @@
 
 Abrir browser Localhost:4000
 
-**Contas correntes cadastradas no banco**
+**Contas correntes cadastradas no banco de dados**
 
 Conta: 54571<br>
 Nome: João Vitor<br>
