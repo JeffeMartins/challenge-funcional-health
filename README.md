@@ -1,4 +1,4 @@
-**Esta é uma API de Caixa eletronico Feita em GraphQL**
+**Esta é uma API para Caixa eletronico Feita em GraphQL**
 
 **Pre requisitos:**
 
