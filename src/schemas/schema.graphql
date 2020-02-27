@@ -1,0 +1,19 @@
+type User{
+    id: ID!
+    name: String!
+    email: String!
+    conta: Int!
+    saldo: Float!
+    
+}
+
+type Query{
+    saldo(conta: Int!):User
+}
+
+type Mutation{
+    createUser(name: String!, email: String!, conta: Int! saldo: Float!):User
+    sacar(conta: Int! saque: Float!):User
+    depositar(conta: Int! valor: Float!):User
+
+}
