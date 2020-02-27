@@ -2,22 +2,22 @@
 
 **Pre requisitos:**
 
-NodeJS v12.1.0 ou compatível.
+*NodeJS v12.1.0 ou compatível.
 
-Yarn v1.21.1 ou compatível.
+*Yarn v1.21.1 ou compatível.
 
-**Banco utilzado**
+**Banco de dados utilizado**
 
-MongoDB
+*MongoDB
 
 **Instalação das dependências**
 
-Yarn install
-Npm install
+*Yarn install
+*Npm install
 
 **Startando servidor**
 
-yarn start
+*yarn start
 
 Abrir browser Localhost:4000
 
