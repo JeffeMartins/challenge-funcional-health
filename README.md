@@ -44,7 +44,7 @@ createUser(name: String!, email: String!, conta: Int!, saldo: Float!): User
 
 A API não permite a criação de contas com o mesmo número.
 
-**link para teste:** https://challenge-funcional-health.herokuapp.com/
+**link da API pra teste:** https://challenge-funcional-health.herokuapp.com/
 
 **Para mais informações é possível acessar a aba DOCS e SCHIMA do Apollo server
 no localhost:4000 após startar o server**
