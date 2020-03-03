@@ -35,7 +35,7 @@ Conta: 13346<br>
 Nome: Roberto Figueira<br>
 Saldo: 500<br>
 
-**É possível criar novas contas corrente utilzando
+**É possível criar novas contas corrente utilizando
 a Mutation<br>**
 
 createUser(name: String!, email: String!, conta: Int!, saldo: Float!): User
