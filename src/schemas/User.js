@@ -1,14 +1,8 @@
 const mongoose = require('mongoose');
-
-const UserSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    conta: {
-        type: Number,
-        unique: true
-    },
-    saldo: Number,
-
-});
-
-module.exports = mongoose.model('User', UserSchema);
+const schema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true, maxlength: 160 },
+  email: { type: String, required: true, trim: true, lowercase: true },
+  conta: { type: Number, required: true, unique: true, min: 1 },
+  saldoCentavos: { type: Number, required: true, min: 0, validate: Number.isSafeInteger },
+}, { timestamps: true });
+module.exports = mongoose.model('User', schema);

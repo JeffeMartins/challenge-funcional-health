@@ -1,54 +1,39 @@
-**Esta é uma API para Caixa eletronico Feita em GraphQL**
+# Simulador de caixa eletrônico com GraphQL
 
-**Pre requisitos:**
+Exercício de contas, consulta de saldo, depósito e saque. Refatoração da implementação GraphQL/MongoDB de 2022, mantendo o contrato GraphQL de entrada e saída.
 
-*NodeJS v12.1.0 ou compatível.
+[![CI](https://github.com/JeffeMartins/challenge-funcional-health/actions/workflows/ci.yml/badge.svg)](https://github.com/JeffeMartins/challenge-funcional-health/actions/workflows/ci.yml)
 
-*Yarn v1.21.1 ou compatível.
+## Melhorias de engenharia
 
-**Banco de dados utilizado**
+- GraphQL Yoga atualizado, sem conexão ou credencial cloud embutida.
+- Dinheiro persistido em centavos inteiros; valores negativos, não finitos ou com precisão inválida são rejeitados.
+- Saque usa filtro de saldo e `$inc` na mesma operação atômica. Depósito também usa incremento atômico, evitando read-modify-write que perde atualizações.
+- Validação de conta, nome/email e tratamento de duplicidade.
+- Testes de precisão e da operação atômica; parada graciosa do servidor e banco.
 
-*MongoDB
+## Executar localmente
 
-**Instalação das dependências**
+Pré-requisitos: Node.js 24 LTS e npm; Docker Compose v2 para os serviços que usam banco.
 
-*Yarn install<br>
-*Npm install
+```sh
+npm ci
+npm test
+docker compose up -d --build
+```
 
-**Startando servidor**
+GraphiQL: `http://localhost:4000/graphql` (habilitado no Compose local).
 
-*yarn start
+```graphql
+mutation { createUser(name:"Pessoa Demo",email:"demo@example.com",conta:1001,saldo:100) { conta saldo } }
+query { saldo(conta:1001) { name saldo } }
+mutation { sacar(conta:1001,saque:10.25) { conta saldo } }
+```
 
-Abrir browser Localhost:4000
+O novo schema Mongo usa `saldoCentavos`; bancos antigos com `saldo` em reais precisam de migração explícita, sem conectar automaticamente à antiga instância cloud. A API é um simulador local sem autenticação, contabilidade de partidas, trilha de auditoria ou requisitos de um sistema financeiro real. Não exponha seu banco/demo publicamente. `npm start` pode usar `MONGODB_URI` para um banco local próprio.
 
-**Contas correntes cadastradas no banco de dados**
+## Qualidade e limites da evidência
 
-Conta: 54571<br>
-Nome: João Vitor<br>
-Saldo: 25000<br>
+As mudanças preservam a proposta do exercício e corrigem problemas observados no código. A CI usa Node 24 e `npm ci`, executa o build quando disponível e os testes existentes. O lockfile é versionado; dependências e pastas de build não são. Dependabot acompanha atualizações semanais. Não há promessa de cobertura total, auditoria completa de segurança ou capacidade de produção.
 
-Conta: 63451<br>
-Nome: Maria Eduarda<br>
-Saldo: 7500
-
-Conta: 13346<br>
-Nome: Roberto Figueira<br>
-Saldo: 500<br>
-
-**É possível criar novas contas corrente utilizando
-a Mutation<br>**
-
-createUser(name: String!, email: String!, conta: Int!, saldo: Float!): User
-
-**OBS:**
-
-A API não permite a criação de contas com o mesmo número.
-
-**link da API pra teste:** https://challenge-funcional-health.herokuapp.com/
-
-**Para mais informações é possível acessar a aba DOCS e SCHIMA do Apollo server
-no localhost:4000 após startar o server**
-
-
-
-
+Não publique `.env`, cookies, tokens ou dados reais de clientes. Antes de expor a aplicação à internet, revise autenticação/autorização, TLS, limites de chamadas, logs e backups conforme o domínio. Os exemplos são para execução local. Use `docker compose down` para parar os containers; volumes persistem e `down -v` apaga seus dados.
